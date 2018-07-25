@@ -2,38 +2,34 @@ package mytest;
 
 import org.hibernate.Session;
 
-import user.MyUser;
+import user.MoneyLaundering;
 import util.HibernateUtil;
-import variety.UserType;
 
-public class TestUser {
+public class TestMoneyLaundery {
+
 	public static void main(String args[]) {
-		//createUser();
-		getCurrentUser();
+		createMoney();
+		//getMoney();
 	}
 
-	private static void getCurrentUser() {
+	private static void getMoney() {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.getTransaction().begin();
-		MyUser myUser = (MyUser) session.get("user.MyUser", 1);
-		System.out.println(myUser.getEmail());
-		myUser.setEmail("champa@hoo.com");
-		session.save(myUser);
+		MoneyLaundering laundering =(MoneyLaundering) session.get("", "1");
+
+		session.save(laundering);
 		session.getTransaction().commit();
 		session.close();
 		HibernateUtil.shutdown();
 	}
 
-	private static void createUser() {
-		MyUser myUser = new MyUser("hello@gmail.com",UserType.TRAINER);
+	private static void createMoney() {
+		MoneyLaundering laundering = new MoneyLaundering(199000.333f);
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.getTransaction().begin();
-		session.save(myUser);
+		session.save(laundering);
 		session.getTransaction().commit();
 		session.close();
 		HibernateUtil.shutdown();
 	}
-	
-	
-	
 }
